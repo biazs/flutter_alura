@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Column(
+    children: <Widget>[
+      Text('Deliver features faster', textDirection: TextDirection.ltr,),
+      Text('Craft beautiful UIs', textDirection: TextDirection.ltr,),
+      Expanded(
+        child: FittedBox(
+          fit: BoxFit.contain, // otherwise the logo will be tiny
+          child: const FlutterLogo(),
+        ),
+      ),
+    ],
+  ));
 }
-
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -115,3 +126,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/

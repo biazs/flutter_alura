@@ -17,17 +17,11 @@ void main(){
 
   int altura = 178;
 
-  if(altura < 150){
-    print("Pequena") ;
-  }
-  else if(altura >= 150 && altura <= 175){
-    print("Media") ;
-  }
-  else if(altura >= 175 && altura <= 195){
-    print("Grande") ;
-  }
-  else{
-    print("Gigante") ;
-  }
+  if(altura < 150){ print("Pequena"); }
+  else if(altura >= 150 && altura <= 175){ print("Media"); }
+  else if(altura >= 175 && altura <= 195){ print("Grande"); }
+  else{  print("Gigante"); }
+
+  
 
 }
