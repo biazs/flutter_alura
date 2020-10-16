@@ -86,33 +86,43 @@ class Editor extends StatelessWidget {
   }
 }
 
-class ListaTransferencias extends StatelessWidget {
+class ListaTransferencias extends StatefulWidget {
   final List<Transferencia> _transferencias = List();
 
   @override
+  State<StatefulWidget> createState() {
+    debugPrint('passou pelo stateful');
+    return ListaTransferenciasState();
+  }
+}
+
+class ListaTransferenciasState extends State<ListaTransferencias> {
+  @override
   Widget build(BuildContext context) {
-    _transferencias.add(Transferencia(100.0, 1111));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
       ),
       body: ListView.builder(
-        itemCount: _transferencias.length,
-        itemBuilder: (context, indice){
-          final transferencia = _transferencias[indice];
+        itemCount: widget._transferencias.length,
+        itemBuilder: (context, indice) {
+          final transferencia = widget._transferencias[indice];
           return ItemTransferencia(transferencia);
         },
-       
       ),
-      floatingActionButton: FloatingActionButton(        
-        child: Icon(Icons.add), onPressed: () {  
-          final Future<Transferencia> future = Navigator.push(context, MaterialPageRoute(builder: (context){
-              return FormularioTransferencia();
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          final Future<Transferencia> future =
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
-           debugPrint('chegou no then');
-           debugPrint('$transferenciaRecebida');
-           _transferencias.add(transferenciaRecebida);
+            debugPrint('chegou no then');
+            debugPrint('$transferenciaRecebida');
+            setState(() {
+              widget._transferencias.add(transferenciaRecebida);
+            });
           });
         },
       ),
