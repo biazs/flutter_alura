@@ -1,6 +1,17 @@
+import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
-class CntactForm extends StatelessWidget {
+class ContactForm extends StatefulWidget {
+
+  @override
+  _ContactFormState createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<ContactForm> {
+final TextEditingController _nameController = TextEditingController();
+
+final TextEditingController _accountNumberController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,6 +22,7 @@ class CntactForm extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(children: <Widget>[
           TextField(
+            controller: _nameController,
             decoration: InputDecoration(
               labelText: 'Full name',
             ),
@@ -21,6 +33,7 @@ class CntactForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: TextField(
+              controller: _accountNumberController,
               decoration: InputDecoration(
                 labelText: 'Account number',
               ),
@@ -35,7 +48,12 @@ class CntactForm extends StatelessWidget {
             child: SizedBox(
               width: double.maxFinite,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final String name = _nameController.text;
+                  final int accountNumber = int.tryParse(_accountNumberController.text);
+                  final Contact newContact = Contact(name, accountNumber);
+                  Navigator.pop(context, newContact);
+                },
                 child: Text('Create'),
               ),
             ),
