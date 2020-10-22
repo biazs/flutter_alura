@@ -16,17 +16,25 @@ class Dashboard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset('images/bytebank_logo.png'),
           ),
-          Row(
-            children: <Widget>[
-              _FutureItem(
-                "Transfer",
-                Icons.monetization_on,
-              ),
-              _FutureItem(
-                "Transaction Ffeed",
-                Icons.description,
-              ),
-            ],
+          Container(
+            height: 120,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                _FutureItem(
+                  "Transfer",
+                  Icons.monetization_on,
+                  onClick: () {
+                    _showContactsList(context);
+                  },
+                ),
+                _FutureItem(
+                  "Transaction Ffeed",
+                  Icons.description,
+                  onClick: () => print('transaction feed was clicked'),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -34,11 +42,20 @@ class Dashboard extends StatelessWidget {
   }
 }
 
+void _showContactsList(BuildContext context){
+  Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ContactsList(),
+              ),
+            );
+}
+
 class _FutureItem extends StatelessWidget {
   final String name;
   final IconData icon;
+  final Function onClick;
 
-  _FutureItem(this.name, this.icon);
+  _FutureItem(this.name, this.icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +64,10 @@ class _FutureItem extends StatelessWidget {
       child: Material(
         color: Theme.of(context).primaryColor,
         child: InkWell(
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ContactsList()));
-          },
+          onTap: () => onClick(),
           child: Container(
             padding: EdgeInsets.all(8.0),
-            height: 90,
+            //height: 90,
             width: 150,
             color: Theme.of(context).primaryColor,
             child: Column(
