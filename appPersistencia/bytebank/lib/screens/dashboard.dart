@@ -1,4 +1,5 @@
 import 'package:bytebank/screens/contacts_list.dart';
+import 'package:bytebank/screens/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -24,14 +25,12 @@ class Dashboard extends StatelessWidget {
                 _FutureItem(
                   "Transfer",
                   Icons.monetization_on,
-                  onClick: () {
-                    _showContactsList(context);
-                  },
+                  onClick: () => _showContactsList(context),
                 ),
                 _FutureItem(
                   "Transaction Ffeed",
                   Icons.description,
-                  onClick: () => print('transaction feed was clicked'),
+                  onClick: () => _showTransactionsList(context),
                 ),
               ],
             ),
@@ -42,12 +41,20 @@ class Dashboard extends StatelessWidget {
   }
 }
 
-void _showContactsList(BuildContext context){
+void _showTransactionsList(BuildContext context) {
   Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ContactsList(),
-              ),
-            );
+    MaterialPageRoute(
+      builder: (context) => TransactionsList(),
+    ),
+  );
+}
+
+void _showContactsList(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => ContactsList(),
+    ),
+  );
 }
 
 class _FutureItem extends StatelessWidget {
