@@ -6,13 +6,9 @@ import 'models/transaction.dart';
 
 void main() {
   runApp(BytebankApp());
-  save(Transaction(200.0, Contact(0, 'Gui', 2000))).then((transaction) => print(transaction));
+  //save(Transaction(200.0, Contact(0, 'Gui', 2000))).then((transaction) => print(transaction));
   //findAll().then((transactions) => print('new transactons $transactions'));
   
-  //save(Contact(0, 'Fabiana', 1000));
- // {
-    //findAll().then((contacts) => debugPrint(contacts.toString()));
-  //});
 }
 
 class BytebankApp extends StatelessWidget {
