@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/transaction.dart';
 import 'package:bytebank/http/webclient.dart';
 import 'package:http/http.dart';
@@ -16,47 +14,27 @@ class TransactionWebClient{
 List<Transaction> _toTransactions(Response response){
 final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = List();
-  for (Map<String, dynamic> transactionJson in decodedJson) {
-    final Map<String, dynamic> contactJson = transactionJson['contact'];
-    final Transaction transaction = Transaction(
-      transactionJson['value'],
-      Contact(
-        0,
-        contactJson['name'],
-        contactJson['accountNumber'],
-      ),
-    );
-    transactions.add(transaction);
+  for (Map<String, dynamic> transactionJson in decodedJson) {    
+    transactions.add(Transaction.fromJson(transactionJson));
   }
   return transactions;
 }
 
-Future<Transaction> save(Transaction transaction) async {
-  final Map<String, dynamic> transactionMap = {
-    'value' : transaction.value,
-    'contact' : {
-      'name' : transaction.contact.name,
-      'accountNumber' : transaction.contact.accountNumber,
-    }  
-  };
-  final String transactionJson = jsonEncode(transactionMap);  
+Future<Transaction> save(Transaction transaction) async {  
+  final String transactionJson = jsonEncode(transaction.toJson());  
 
   final Response response = await client.post(baseUrl, headers: {
     'Content-type': 'application/json',
     'password': '1000',
   }, body: transactionJson);
 
-  Map<String, dynamic> json = jsonDecode(response.body);
-  final Map<String, dynamic> contactJson = json['contact'];
-  return Transaction(
-      json['value'],
-      Contact(
-        0,
-        contactJson['name'],
-        contactJson['accountNumber'],
-      ),
-    );
+  return _toTransaction(response);
 
+}
+
+Transaction _toTransaction(Response response) {
+   Map<String, dynamic> json = jsonDecode(response.body);  
+  return Transaction.fromJson(json);
 }
 
 }
