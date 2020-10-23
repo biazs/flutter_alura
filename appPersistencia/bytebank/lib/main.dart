@@ -1,10 +1,14 @@
+import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'http/webclient.dart';
+import 'models/transaction.dart';
 
 void main() {
   runApp(BytebankApp());
-  findAll().then((transactions) => print('new transactons $transactions'));
+  save(Transaction(200.0, Contact(0, 'Gui', 2000))).then((transaction) => print(transaction));
+  //findAll().then((transactions) => print('new transactons $transactions'));
+  
   //save(Contact(0, 'Fabiana', 1000));
  // {
     //findAll().then((contacts) => debugPrint(contacts.toString()));
