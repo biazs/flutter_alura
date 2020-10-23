@@ -1,21 +1,20 @@
 import 'dart:convert';
+
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/transaction.dart';
+import 'package:bytebank/http/webclient.dart';
 import 'package:http/http.dart';
-import 'package:http_interceptor/http_interceptor.dart';
-import 'interceptors/logging_interceptor.dart';
 
-
-final Client client = HttpClientWithInterceptor.build(interceptors: [
-  LoggingInterceptor(),
-]);
-
-const String baseUrl = 'http://192.168.18.25:8080/transactions';
-
-Future<List<Transaction>> findAll() async {
+class TransactionWebClient{
+  Future<List<Transaction>> findAll() async {
   final Response response =
       await client.get(baseUrl).timeout(Duration(seconds: 5));
-  final List<dynamic> decodedJson = jsonDecode(response.body);
+  List<Transaction> transactions = _toTransactions(response);
+  return transactions;
+}
+
+List<Transaction> _toTransactions(Response response){
+final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = List();
   for (Map<String, dynamic> transactionJson in decodedJson) {
     final Map<String, dynamic> contactJson = transactionJson['contact'];
@@ -57,5 +56,7 @@ Future<Transaction> save(Transaction transaction) async {
         contactJson['accountNumber'],
       ),
     );
+
+}
 
 }
