@@ -28,7 +28,7 @@ class Dashboard extends StatelessWidget {
                   onClick: () => _showContactsList(context),
                 ),
                 _FeatureItem(
-                  "Transaction Ffeed",
+                  "Transaction Feed",
                   Icons.description,
                   onClick: () => _showTransactionsList(context),
                 ),
