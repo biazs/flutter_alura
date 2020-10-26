@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bytebank/models/transaction.dart';
 import 'package:bytebank/http/webclient.dart';
 import 'package:http/http.dart';
+import 'package:path/path.dart';
 
 class TransactionWebClient {
   Future<List<Transaction>> findAll() async {
@@ -26,6 +27,14 @@ class TransactionWebClient {
           'password': password,
         },
         body: transactionJson);
+
+    if (response.statusCode == 400) {
+      throw Exception('there was an error: submitting transaction');
+    }
+
+    if (response.statusCode == 401) {
+      throw Exception('there was an error: authentication failed');
+    }
 
     return Transaction.fromJson(jsonDecode(response.body));
   }
