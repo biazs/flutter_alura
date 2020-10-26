@@ -1,8 +1,6 @@
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
-import 'components/transaction_auth_dialog.dart';
-
 void main() {
   runApp(BytebankApp());
   //save(Transaction(200.0, Contact(0, 'Gui', 2000))).then((transaction) => print(transaction));

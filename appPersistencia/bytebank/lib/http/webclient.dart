@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:bytebank/models/contact.dart';
-import 'package:bytebank/models/transaction.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
@@ -13,6 +10,7 @@ final Client client = HttpClientWithInterceptor.build(
 
 const String baseUrl = 'http://192.168.18.25:8080/transactions';
 
+/*
 Future<List<Transaction>> findAll() async {
   final Response response =
       await client.get(baseUrl).timeout(Duration(seconds: 5));
@@ -60,3 +58,4 @@ Future<Transaction> save(Transaction transaction) async {
     );
 
 }
+*/
