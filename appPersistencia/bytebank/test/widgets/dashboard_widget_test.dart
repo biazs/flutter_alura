@@ -1,13 +1,15 @@
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'matchers.dart';
+import '../matchers/matchers.dart';
 
 void main() {
-  testWidgets('Should display the main image when the Dashboard is opened',
+  final ContactDao contactDao = ContactDao();
+    testWidgets('Should display the main image when the Dashboard is opened',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    await tester.pumpWidget(MaterialApp(home: Dashboard(contactDao: contactDao)));
     final mainImage = find.byType(Image);
     expect(mainImage, findsOneWidget);
   });
@@ -15,7 +17,7 @@ void main() {
   testWidgets(
       'Should display the transfer feature when the Dashboard is opened',
       (tester) async {
-    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    await tester.pumpWidget(MaterialApp(home: Dashboard(contactDao: contactDao)));
     /* final iconTransferFeatureItem = find.widgetWithIcon(FeatureItem, Icons.monetization_on);
     expect(iconTransferFeatureItem, findsOneWidget);
     final nameTranferFeatureItem = find.widgetWithText(FeatureItem, 'Transfer');
@@ -28,7 +30,7 @@ void main() {
   testWidgets(
       'Should display the transaction feature when the Dashboard is opened',
       (tester) async {
-    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    await tester.pumpWidget(MaterialApp(home: Dashboard(contactDao: contactDao)));
     final transactionFeatureItem = find.byWidgetPredicate((widget) =>
         featureItemMatcher(widget, 'Transaction Feed', Icons.description));
     expect(transactionFeatureItem, findsOneWidget);
