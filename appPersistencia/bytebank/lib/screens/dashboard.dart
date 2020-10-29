@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
 
-  final ContactDao contactDao;
-  Dashboard({@required this.contactDao});
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +33,7 @@ class Dashboard extends StatelessWidget {
                       FeatureItem(
                         "Transfer",
                         Icons.monetization_on,
-                        onClick: () => _showContactsList(context, contactDao),
+                        onClick: () => _showContactsList(context),
                       ),
                       FeatureItem(
                         "Transaction Feed",
@@ -63,10 +60,10 @@ void _showTransactionsList(BuildContext context) {
   );
 }
 
-void _showContactsList(BuildContext context, ContactDao contactDao) {    
+void _showContactsList(BuildContext context) {    
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ContactsList(contactDao: contactDao),
+            builder: (context) => ContactsList(),
       ),
     );
   }
